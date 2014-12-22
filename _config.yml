@@ -8,5 +8,6 @@ paginate: 10
 exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
 
 markdown: redcarpet
+
 redcarpet:
- extensions: ["fenced_code_blocks", "tables"]
+ extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
