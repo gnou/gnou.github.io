@@ -2,10 +2,10 @@
 layout: post
 title:  "How to set tint color in iOS App"
 date:   2014-11-28
-categories: uiwebview 
+categories: howto 
 ---
 
-## AppDelegate.m
+#### AppDelegate.m
 ```Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 

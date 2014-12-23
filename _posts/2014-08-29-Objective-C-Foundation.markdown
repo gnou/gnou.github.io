@@ -5,13 +5,13 @@ date:   2014-08-29
 categories: basic objective-c
 ---
 
-### `+ (NSString *)description`
+#### `+ (NSString *)description`
 NSObject method, override这个method会对log输出等非常有帮助，比如，可以把*Card*这个类的*description* method写成 输出Card content，这样以来，使用`NSLong("%@", objCard)`时输出地信息会更有帮助。
 
-### 关于集类
+#### 关于集类
 在Objective-C中，集类(NSArray, NSSet, NSDictionary)用于管理对象组，所以添加到集类中的任何项目都必须是Objective-C类的实例，也就是说，你不能把int/float/double/BOOL/enums等添加到里面，必须使用他们对应的Objective-C中的值对象，如NSNumber/NSValue等
 
-### NSArray
+#### NSArray
 不可变有序集合，使用`@[obj1, obj2, ...]`创建
 NSArray有很多可用的初始化和工厂方法，如下：
 {% highlight objective-c %}
@@ -48,7 +48,7 @@ NSArray *someArray = @[firstObejct, secObject, thirdObject];
 * - (NSString *)componentsJoinedByString:(NSString *)separator;
     返回一个NSString，这个NSString由array中的各个元素加separator组成
 
-###NSMutableArray
+#### NSMutableArray
 NSArray的子类，拥有NSArray的所有method。
 * 创建
     1. `alloc/init`
@@ -63,30 +63,30 @@ NSArray的子类，拥有NSArray的所有method。
 * `- (void)removeObjectAtIndex:(NSUinteger)index`
     移除index处的object
 
-###NSNumber
+#### NSNumber
 把int/float/double/BOOL/enums等包装了一下，一般是为了把它放进Arry或Dictionary中，原始类型(int/float/double/BOOL/enums)是不能放进去的。
 
-###NSSet
+#### NSSet
 查找效率很高
 
-###NSDcitionary
+#### NSDcitionary
 `NSDictionary *dic = @{key:value, key:value, ...};`
 *key*需要hash/isEqual，所以NSString是最好的选择
 * `- (NSUInteger)count;`
 * `- (id)objectForKey:(id)key;`
     等同于`dic[key]`
 
-###Property List
+#### Property List
 A collection of collections
 
-###Type for View
+#### Type for View
 
 
-####CGFloat
+##### CGFloat
 浮点型，会根据CPU是32/64位而变化
 
 
-####CGPoint
+##### CGPoint
 坐标点，C语言结构体(c struct)类型，包括两个CGFloat：x 和 y.
 {% highlight objective-c %}
 CGPoint p = CGPointMake(34.5, 22.0);
@@ -94,14 +94,14 @@ p.x += 20;  //右移20个单位
 {% endhighlight %}
 
 
-####CGSize
+##### CGSize
 大小，C语言结构体类型，包括两个CGFloat：width 和 height
 {% highlight objective-c %}
 CGSize s= CGSizeMake(100.0, 200.0);
 s.height += 50; //高度增加50
 {% endhighlight %}
 
-###CGRect
+#### CGRect
 矩形，C语言结构体，由 CGPoint origin 和 CGSize size 组成
 {% highlight objective-c %}
 CGRect aRect = CGRectMake(45.0, 75.5, 300, 500);

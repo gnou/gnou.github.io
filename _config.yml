@@ -1,13 +1,33 @@
-name: Simple Blog
-#url: http://example.org
-#description: A stylish blog using the Solarized color palette
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-#permalink: /:year/:month/:day/:title/
-paginate: 10
-
-exclude: ['README.md', 'Gemfile.lock', 'Gemfile', 'Rakefile']
-
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
 markdown: redcarpet
-
 redcarpet:
  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Simple Blog
+
+description: Stylish Jekyll Theme
+author:
+  name: Mingyu Cui
+  email: malvin.cui@gmail.com
+  github: gnou
+#  twitter: dbtek
+#  pinterest: asd123
+#  linkedin: asd123
+  bio: 现居北京，专注于iOS开发
+  email_md5: c1484484f4645fc3a5c5080ba8e9793b
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+BASE_PATH:

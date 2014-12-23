@@ -5,10 +5,10 @@ date:   2014-10-16
 categories: reactivecocoa rac 
 ---
 
-## 通俗解释
+#### 通俗解释
 ReactiveCocoa 中有两个最重要的对象：signals & subscribers。Signals 可以理解成信号塔，真实世界里的信号塔负责把数据发送给他的接收方，这里的接收方就是subscribers。一个signal也可以作为另一个signal的subscriber。
 
-## 概述
+#### 概述
 ReactiveCocoa signals 会把「事件流」(stream of events)发送给他们的subscibers。「事件」(event)分三种：
 * **next**
 * **error**
@@ -16,9 +16,9 @@ ReactiveCocoa signals 会把「事件流」(stream of events)发送给他们的s
 
 RACSignal中有很多methods可以subscribe不同的event，每个method使用一个或多个blocks，当这个event发生时，block中的代码会执行。比如，`subscribeNext:`会提供一个block用来处理*next* event。
 
-## 重点
+#### 重点
 
-### rac_textSignal
+##### rac_textSignal
 ReactiveCocoa框架为标准UIKit controls增加了很多signals，比如*UITextField*中增加的`rac_textSignal`属性，我们可以使用他们来subscribe这些UIKit control的events
 {% highlight objective-c %}
 ...
@@ -35,7 +35,7 @@ ReactiveCocoa框架为标准UIKit controls增加了很多signals，比如*UIText
 
 上面的代码中，*usernameTextField*中的text发生变化时，会在终端中打印出当前的text。
 
-### filter
+##### filter
 假定只有username大于3个字符的时候我们才感兴趣，可以使用**filter**来实现
 {% highlight objective-c %}
     [[self.usernameTextField.rac_textSignal filter:^BOOL(id value) {
@@ -60,7 +60,7 @@ ReactiveCocoa框架为标准UIKit controls增加了很多signals，比如*UIText
     }];
 {% endhighlight %}
 
-### map
+##### map
 如果我们感兴趣的不是textField中输入的字符，而是字符的个数，可以使用**map**来改变*管道*中的数据流，如下：
 {% highlight objective-c %}
     [[[self.usernameTextField.rac_textSignal
@@ -76,7 +76,7 @@ ReactiveCocoa框架为标准UIKit controls增加了很多signals，比如*UIText
 同样是*管道*，这个例子和之前的不同之处在于 管道中的数据发生了变化，如下图：
 ![Map pipeline]({{site.url}}/assets/FilterAndMapPipeline.png)
 
-### Combine
+##### Combine
 把多个信号合并成一个，例子如下：
 {% highlight objective-c %}
     RACSignal *signUpActiveSignal = [RACSignal combineLatest:@[validPasswordSignal, validUsernameSignal] reduce:^(NSNumber *passwordValid, NSNumber *usernameValid){
@@ -118,7 +118,7 @@ RAC(self, createEnabled) = [RACSignal
     }];
 {% endhighlight %}
 
-### RACCommand ???????
+##### RACCommand ???????
 这里的command就是代表actions(通常是UI actions，例如按下button)的signal
 `RACCommand` : 创建一个,还可以和与这个action相关的操作绑定
 `-rac_command` : 类似于UITextField的`rac_textSignal`，当UI actions发生时发出这个信号

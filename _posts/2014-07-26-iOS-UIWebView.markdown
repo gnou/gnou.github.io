@@ -5,7 +5,7 @@ date:   2014-07-25
 categories: uiwebview 
 ---
 
-###Delegate
+#### Delegate
 如果是在空白view中添加了一个webView，可以把原来的controller设置为UIWebViewDelegate的委托：在controller.h中加上<UIWebViewDelegate>，在controller.m中加一个webView的outlet，设置self.webView.delegate = self。然后就可以在controller.m中实现以下代理方法：
 {% highlight objective-c %}
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -16,7 +16,7 @@ categories: uiwebview
 
 由上到下一次表示：**开始请求 、已经开始加载 、 加载完成 、 加载错误**
 
-#### shouldStartLoadWithRequest
+##### shouldStartLoadWithRequest
 此代理方法可以捕获到一切请求，非常有用。
 比如在进行oAuth2时，一般进行向server发送两次请求，第一获得authorize **code**，第二次使用前面得到的authorize code的到access **token**。那么就可以在这个代理方法中进行分析操作。
 下面以新浪微博为例：
