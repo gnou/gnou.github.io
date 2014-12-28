@@ -55,6 +55,7 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 }
 ```
 如果这个object已经被销毁，也就是self被销毁了，block中的weakSelf会被指向nil，正常结束。错误用法会导致self永远不能被销毁。
+
 为了防止self半路上直接变nil，上面的代码又发展成了这样：
 
 ```Objective-C
