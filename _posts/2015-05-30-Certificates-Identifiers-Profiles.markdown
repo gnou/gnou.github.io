@@ -20,6 +20,7 @@ categories: certificate, identifier, profile, provisioning profile
  * `openssl req -new -sha256 -key private.key -out my.certSigningRequest`  
 
 来自Apple的解释：  
+
 > When your CSR file is created, a public and private key pair is automatically generated. Your private key is stored on your computer. On a Mac, it is stored in the login Keychain by default and can be viewed in the Keychain Access app under the "Keys" category. Your requested certificate is the public half of your key pair.
 
 
