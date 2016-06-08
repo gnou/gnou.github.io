@@ -10,19 +10,15 @@ categories: certificate, identifier, profile, provisioning profile
 生成方法有如下两种：   
 
 * **Keychain Access**   
-
- * *Certificate Assistant* -> *Request a Certificate From a Certificate Authority*   
-
- * 填写*User Email Address*&*Common Name*(key的名字，最好取一个特殊的名字，方便日后(在Keychain Access中)查找)，留空”CA Email”，”Save to disk”，会在本地生成后缀名为`.certSigningRequest`的CSR文件      
-
+  * *Certificate Assistant* -> *Request a Certificate From a Certificate Authority*   
+  * 填写*User Email Address*&*Common Name*(key的名字，最好取一个特殊的名字，方便日后(在Keychain Access中)查找)，留空”CA Email”，”Save to disk”，会在本地生成后缀名为`.certSigningRequest`的CSR文件      
 - **Command Line**   
- * `openssl genrsa -out private.key 2048`   
- * `openssl req -new -sha256 -key private.key -out my.certSigningRequest`  
+  * `openssl genrsa -out private.key 2048`   
+  * `openssl req -new -sha256 -key private.key -out my.certSigningRequest`  
 
-来自Apple的解释：  
+来自Apple的解释：
 
 > When your CSR file is created, a public and private key pair is automatically generated. Your private key is stored on your computer. On a Mac, it is stored in the login Keychain by default and can be viewed in the Keychain Access app under the "Keys" category. Your requested certificate is the public half of your key pair.
-
 
 ## Certificates  
 

@@ -18,7 +18,7 @@ author:
   name: Mingyu Cui
   email: malvin.cui@gmail.com
   github: gnou
-#  twitter: dbtek
+  twitter: onion_it
 #  pinterest: asd123
 #  linkedin: asd123
   bio: 现居北京，专注于iOS开发
@@ -30,5 +30,10 @@ tags_path: tags.html
 
 BASE_PATH:
 
+kramdown:
+ input: GFM
+ hard_wrap: false
+
 gems:
+  - jekyll-coffeescript
   - jekyll-paginate
