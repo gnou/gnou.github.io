@@ -24,7 +24,8 @@ categories: viewController
 #### 实例化与初始化
 实例化一个view controller有两种方法，一是从storyboard中解冻，二是使用alloc/init创建。
 从storyboard中实例化出来之后，`awakeFromNib`会被调用。而使用alloc/init创建后，`initWithNibName: bundle:`会被调用。他们都在controller被load之前被调用，如果有些代码等不到`viewDidLoad`，最好由他们执行，因为两者执行的内容其实是相同的，所以可以使用下面这个代码模板，把代码放到`setup`中，然后由两个方法调用：
-{% highlight objective-c %}
+
+```objective_c
 - (void)setup {};   // do something which can't wait until viewDidLoad
 - (void)awakeFromNib { [self setup]; }
 - (instancetype)initWithNibName: (NSString *)name bundle:(NSBundle *)bundle {
@@ -32,6 +33,4 @@ categories: viewController
     if (self) { [self setup]; }
     return self;
 }
-{% endhighlight %}
-
-
+```

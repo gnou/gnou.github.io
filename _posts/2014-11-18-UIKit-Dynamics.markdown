@@ -18,7 +18,7 @@ date:   2014-11-18
 
 > animator创建时要指定view作为参照系，各种behaviors创建时要指定要作用的item(比如view)
 
-```Objective-C
+```objective_c
 
 @implementation ViewController
 #import "ViewController.h"

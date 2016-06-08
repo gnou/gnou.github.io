@@ -9,7 +9,7 @@ block由C语言实现，所以在所有以C为基础的语言中都可以使用�
 
 #### Format
 
-```Objective-C
+```objective_c
 <returntype> (^blockname)(list of arguments) = ^(arguments){body;};
 ```
 
@@ -18,7 +18,7 @@ block由C语言实现，所以在所有以C为基础的语言中都可以使用�
 
 例如：
 
-```Objective-C
+```objective_c
 int (^square_block)(int number) = ^(int number){return (number*number);};
 int result = square_block(5);
 printf("Result = %d\n", result);
@@ -27,7 +27,7 @@ printf("Result = %d\n", result);
 #### Avoid Strong Reference Cycles when Capturing self
 Blocks会对所有捕获到的对象保持strong引用，包括self，很容易造成*strong reference cycle*，例如：
 
-```Objective-C
+```objective_c
 @interface XYZBlockKeeper : NSObject
 // 定义一个block property, "copy"在这里只是为了让我们自己意识到block会被copy
 // ARC中，即使不指定，编译器也会帮我们自动"copy"，但写上才是好的编程习惯
@@ -37,7 +37,7 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 @implementation XYZBlockKeeper
 - (void)configureBlock {
     self.block = ^{
-        [self doSomething]; // capturing a strong reference to self, 
+        [self doSomething]; // capturing a strong reference to self,
                             // will end up with strong reference cycle
     }
 }
@@ -46,7 +46,7 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 ```
 为了避免这种问题，应该在block中使用weak引用，如下：
 
-```Objective-C
+```objective_c
 - (void)configureBlock {
     XYZBlockKeeper *__weak weakSelf = self;
     self.block = ^{
@@ -58,7 +58,7 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 
 为了防止self半路上直接变nil，上面的代码又发展成了这样：
 
-```Objective-C
+```objective_c
 - (void)configureBlock {
     XYZBlockKeeper *__weak weakSelf = self;
     self.block = ^{
@@ -74,8 +74,8 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 2. `#import <EXTScope.h>`  (or `#import <ReactiveCocoa/RACEXTScope.h`)
 
 3. 然后这样：
- 
-	```Objective-C
+
+	```objective_c
 	- (void)configureBlock {
     	@weakify(self)
     	self.block = ^{
@@ -85,4 +85,3 @@ Blocks会对所有捕获到的对象保持strong引用，包括self，很容易�
 	}
 	```
 Done! 简洁、易读、易懂！
-

@@ -14,38 +14,41 @@ NSObject method, override这个method会对log输出等非常有帮助，比如�
 #### NSArray
 不可变有序集合，使用`@[obj1, obj2, ...]`创建
 NSArray有很多可用的初始化和工厂方法，如下：
-{% highlight objective-c %}
+
+```objective_c
 + (id)arrayWithObject:(id)anObject:
 + (id)arrayWithObjects:(id)firstObject, ...
 - (id)initWithObjects:(id)firstObject, ...
-{% endhighlight %}
+```
+
 其中，`arrayWithObjects:`和`initWithObjects:`方法都采用了以**nil**结束且数量可变的参数，所以在使用这两种方法的时候，必须以*nil*为最后一个值。例如：
-{% highlight objective-c %}
+
+```objective_c
 NSArray *someArray = [NSArray arrayWithObjects:someObject, someString, someNumber, someValue, nil];
-{% endhighlight %}
+```
 
 不过，下面这种创建array的方法不能加nil:
-{% highlight objective-c %}
+
+```objective_c
 NSArray *someArray = @[firstObejct, secObject, thirdObject];
-{% endhighlight %}
+```
 
 其他有用的方法有：
-* - (NSUInteger)count;
+* `- (NSUInteger)count`;
     返回obj个数
-* - (BOOL)containsObject:(id)anObject
+* `- (BOOL)containsObject:(id)anObject`
     这个array是否包涵anObject
-* - (id)objectAtIndex:(NSUInteger)index;
+* `- (id)objectAtIndex:(NSUInteger)index`;
     返回index处的obj，若index超出count，crash!
-* - (id)lastObject;
+* `- (id)lastObject`;
     返回最后一个obj，若arry为空，返回NULL
-* - (id)firstObject;
+* `- (id)firstObject`;
     返回第一个obj，若arry为空，返回NULL
-* - (NSArray *)sortedArrayUsingSelector:(SEL)aSelector;
-
+* `- (NSArray *)sortedArrayUsingSelector:(SEL)aSelector`;
     根据aSelector提供的方法排序
-* - (void)makeObjectsPerformSelector:(SEL)aSelector withObject:(id)selectorArgument;
+* `- (void)makeObjectsPerformSelector:(SEL)aSelector withObject:(id)selectorArgument`;
     Sends a message specified by a given selector to each object in the set.
-* - (NSString *)componentsJoinedByString:(NSString *)separator;
+* `- (NSString *)componentsJoinedByString:(NSString *)separator`;
     返回一个NSString，这个NSString由array中的各个元素加separator组成
 
 #### NSMutableArray
@@ -88,23 +91,26 @@ A collection of collections
 
 ##### CGPoint
 坐标点，C语言结构体(c struct)类型，包括两个CGFloat：x 和 y.
-{% highlight objective-c %}
+
+```objective_c
 CGPoint p = CGPointMake(34.5, 22.0);
 p.x += 20;  //右移20个单位
-{% endhighlight %}
+```
 
 
 ##### CGSize
 大小，C语言结构体类型，包括两个CGFloat：width 和 height
-{% highlight objective-c %}
+
+```objective_c
 CGSize s= CGSizeMake(100.0, 200.0);
 s.height += 50; //高度增加50
-{% endhighlight %}
+```
 
 #### CGRect
 矩形，C语言结构体，由 CGPoint origin 和 CGSize size 组成
-{% highlight objective-c %}
+
+```objective_c
 CGRect aRect = CGRectMake(45.0, 75.5, 300, 500);
 aRect.size.height += 45;    //高度加45
 aRect.origin.x += 30;   //右移30
-{% endhighlight %}
+```

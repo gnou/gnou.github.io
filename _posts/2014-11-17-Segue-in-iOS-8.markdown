@@ -2,7 +2,7 @@
 layout: post
 title:  "Segue in iOS 8"
 date:   2014-11-17
-categories: segue 
+categories: segue
 ---
 
 #### Segue种类
@@ -23,14 +23,14 @@ ViewControllerA作为ViewControllerB的代理必须要遵从我们在ViewControl
 
 1. 在ViewControllerB.h中，在#import和@interface之间（就是代码位置），我们像下面这样定义我们的协议及协议方法：
 
-    ```Objective-C
+    ```objective_c
     #import ...
     ...
     @classViewControllerB;// Important
     @protocol ViewControllerBDelegate <NSObject>
     - (void)addItemViewController:(ViewControllerB *)controller didFinishEnteringItem:(NSString *)item;
     @end
-    
+
     @interface ...
     ...
     ```
@@ -38,40 +38,40 @@ ViewControllerA作为ViewControllerB的代理必须要遵从我们在ViewControl
     注：(NSString *)item是我们现在要回传的数据类型，也可以是其他类型，如字典、数组等
 
 2. 仍然是在ViewControllerB.h中，设置一个delegate属性，同时在ViewController.m中synthesize
-    ```Objective-C
+    ```objective_c
     @property (nonatomic, weak) id <ViewControllerBDelegate>delegate;
     ```
- 
+
 3. 在ViewControllerB中，我们在将要从导航控制器中弹出该视图的时候向代理发送消息(消息中含有我们要传递的值)
 
-    ```Objective-C
+    ```objective_c
     NSString *itemToPassBack = @"Pass this value back to ViewControllerA";
     [self.delegate addItemViewController:self didFinishEnteringItem:itemToPassBack];
     ```
 
 4. 以上就是所有要在ViewControllerB中进行的操作，接下来就是ViewControllerA的操作。首先我们要在ViewControllerA.h中导入ViewControllerB，并遵从它的协议：
 
-    ```Objective-C
+    ```objective_c
     #import "ViewControllerB.h"
     @interface ViewControllerA :UIViewController <ViewControllerBDelegate>
     ```
- 
+
 5. 在ViewControllerA.m中实现协议方法：
 
-    ```Objective-C
+    ```objective_c
     - (void)addItemViewController:(ViewControllerB *)controller didFinishEnteringItem:(NSString *)item
     {
         NSLog(@"This was returned from ViewControllerB %@",item);
     }
     ```
- 
+
 6. 最后，在我们将ViewControllerB压入堆栈之前，我们需要告诉ViewControllerB，ViewControllerA是它的代理(delegate)：
 
-    ```Objective-C
+    ```objective_c
     ViewControllerB *viewControllerB = [[ViewControllerB alloc] initWithNib:@"ViewControllerB" bundle:nil];
     viewControllerB.delegate = self
     [[self navigationController] pushViewController:viewControllerB animated:YES];
     ```
-    
+
 演示project:
 https://github.com/gnou/Ratings
