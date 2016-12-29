@@ -11,14 +11,14 @@ defaults:
     scope:
       path: "" # empty string for all files
     values:
-      title: Simple Blog
+      title: RANDOM CRASH
 
-description: Gnou's blog site
+# description: Gnou's blog site
 author:
   name: Mingyu Cui
   email: malvin.cui@gmail.com
   github: gnou
-  twitter: onion_it
+  # twitter: onion_it
 #  pinterest: asd123
 #  linkedin: asd123
   bio: 现居北京，专注于iOS开发
