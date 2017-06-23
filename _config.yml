@@ -37,3 +37,5 @@ kramdown:
 gems:
   - jekyll-coffeescript
   - jekyll-paginate
+
+theme: jekyll-theme-minimal
