@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Certificates, Identifiers & Profiles"
+title:  "Certificates, Identifiers & Profiles 简介"
 date:   2015-05-30
 categories: certificate, identifier, profile, provisioning profile
 ---
 
-## CSR(Certificate Request)
+### CSR(Certificate Request)
 这是一个公钥文件，会被用于换取Certificates。生成过程其实是在本地基于RSA加密得到配对的密钥，私钥存在keychain access中，公钥就是这个文件。   
 生成方法有如下两种：   
 
@@ -20,7 +20,7 @@ categories: certificate, identifier, profile, provisioning profile
 
 > When your CSR file is created, a public and private key pair is automatically generated. Your private key is stored on your computer. On a Mac, it is stored in the login Keychain by default and can be viewed in the Keychain Access app under the "Keys" category. Your requested certificate is the public half of your key pair.
 
-## Certificates  
+### Certificates  
 
 用于代码签名，分Development/Distribution两种类型，前者用于开发，后者用于分发/发布。  
 生成步骤如下：  
@@ -30,7 +30,7 @@ categories: certificate, identifier, profile, provisioning profile
 
 > 注意：证书生成的过程中需要上传public key，使用的过程中会去验证它对应的private key，如果生成时所用的Mac并不是我们要用的Mac，需要在private key所在的机器上将其导出。只要在*Keychain Access*中找到对应的**证书**(证书和private key在一起)，导出为`.p12`文件，传到另一台Mac，这样另一台Mac就同时拥有了Certificate和private key。
 
-## App ID
+### App ID
 App ID 用于标识来自一个开发团队的一个或多个Apps。App ID 由 Team ID 和 Bundle ID search string 组成，如下所示：  
 ![App ID]({{site.url}}/assets/media/2015-05-30-AppID.png)  
 App ID 的前缀是 Team ID，它是由Apple提供的。后缀是 Bundle ID search string ，是由我们自己设置，Bundle ID search string 可以是独一无二、用于表示某个特定的App，也可以是有通配符的、表示一系列的App。
