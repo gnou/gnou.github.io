@@ -16,15 +16,15 @@ defaults:
 # description: Gnou's blog site
 author:
   name: Mingyu Cui
-  email: malvin.cui@gmail.com
+  email: mingyu.cui@outlook.com
   github: gnou
   # twitter: onion_it
 #  pinterest: asd123
-#  linkedin: asd123
-  bio: 现居北京，专注于iOS开发
+  linkedin: mingyu-cui-300196ab
+  bio: Detail-oriented developer with well crafted iOS development skills, passionate about mobile and Apple development platform.
   email_md5: c1484484f4645fc3a5c5080ba8e9793b
 
-rss_path: feed.xml
+#rss_path: feed.xml
 categories_path: categories.html
 tags_path: tags.html
 
@@ -34,8 +34,7 @@ kramdown:
  input: GFM
  hard_wrap: false
 
-gems:
+plugins:
   - jekyll-coffeescript
   - jekyll-paginate
 
-theme: jekyll-theme-minimal
