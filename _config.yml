@@ -1,40 +1,43 @@
-# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-paginate: 10 # pagination based on number of posts
-paginate_path: "page:num"
-exclude: ["README.md"] # files to exclude
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: Threshold
+email: mingyu.cui@outlook.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Hello there! This is M.CUI, a constant learner, and this is my blog, where I share what I learned, hope you can find something useful here.
+  If you have any question, don't hesitate to contact me.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+# twitter_username: jekyllrb
+github_username:  gnou
+linkedin: mingyu-cui-300196ab
+
+# Build settings
 markdown: kramdown
-highlighter: rouge
-
-defaults:
-  -
-    scope:
-      path: "" # empty string for all files
-    values:
-      title: RANDOM CRASH
-
-# description: Gnou's blog site
-author:
-  name: Mingyu Cui
-  email: mingyu.cui@outlook.com
-  github: gnou
-  # twitter: onion_it
-#  pinterest: asd123
-  linkedin: mingyu-cui-300196ab
-  bio: Detail-oriented developer with well crafted iOS development skills, passionate about mobile and Apple development platform.
-  email_md5: c1484484f4645fc3a5c5080ba8e9793b
-
-#rss_path: feed.xml
-categories_path: categories.html
-tags_path: tags.html
-
-BASE_PATH:
-
-kramdown:
- input: GFM
- hard_wrap: false
-
+theme: minima
 plugins:
-  - jekyll-coffeescript
-  - jekyll-paginate
+  - jekyll-feed
 
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
