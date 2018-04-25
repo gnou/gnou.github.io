@@ -12,8 +12,9 @@ categories: certificate, identifier, profile, provisioning profile
 
 #### App ID
 我们常说的 App ID 其实是由 Team ID 和 Bundle ID 两部分组成的。Team ID 是由 Apple 生成的，不受我们控制。Apple ID 一般格式如下：
-
+<br><br>
 ![App ID Structure]({{ "/assets/2015-05-30-Certificates-Identifiers-Profiles-AppID.png" }})
+<br><br>
 
 ## Signing Certificates/签名证书
 开发发布过程中我们会遇到几种不同的证书，最常见的当然就是用于应用签名的证书，用于 Apple Push Notification Service SSL (APNS) 的证书也很常用。下面列出几种常见的证书类型和作用
@@ -27,6 +28,7 @@ categories: certificate, identifier, profile, provisioning profile
 Provisioning Profile 其实是一个大合集，里面包含了很多东西，具体如下：
 
 ![Provisioning Profile]({{ "/assets/2015-05-30-Certificates-Identifiers-Profiles-Provisioning Profiles-structure.png" }})
+<br><br>
 
 * **App ID** : 决定了能安装什么应用。
 * **Development Certificate** :  用于给应用签名，证明要安装的这个应用是这个开发者提供的。
