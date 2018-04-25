@@ -104,7 +104,7 @@ a {
   text-decoration: none;
 
   &:visited {
-    color: darken($brand-color, 15%);
+    /** color: darken($brand-color, 15%); */
   }
 
   &:hover {
@@ -148,7 +148,7 @@ code {
   @include relative-font-size(0.9375);
   border: 1px solid $grey-color-light;
   border-radius: 3px;
-  background-color: #eef;
+  background-color: rgba(224, 224, 224, 0.56);
 }
 
 code {
