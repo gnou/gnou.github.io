@@ -14,6 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title: THRESHOLD
+author: MCui
 email: mingyu.cui@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
   Hello there! This is M.CUI, a constant learner, and this is my blog, where I share what I learned, hope you can find something useful here.
