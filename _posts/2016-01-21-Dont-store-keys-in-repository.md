@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "不要把Key保存到代码库里"
+date:   2016-01-21
+---
+
+# 不要把Key保存到代码库里
+
+## Problems
+相信大多数人开发过程中都会遇到一些特殊的 key，比如我们继承微信、微博的 SDK 的时候都需要到 腾讯、新浪的开发者网站上注册我们的应用，获得 App ID/Secret 以供我们调用他们接口的时候使用，再比如我们加密某些数据的时候的 [盐](https://zh.wikipedia.org/wiki/%E7%9B%90_(%E5%AF%86%E7%A0%81%E5%AD%A6)) ， 这些特殊的字符串们应该如何保存可能很多人都没有想过，下面是我以 `api_key` 为关键词在 GitHub 上搜索出来的结果，想象一下你为了安全，给你家大门上了锁配了钥匙，然后把为了方便使用，就把钥匙挂在了大门，对，就像这样。
+<br><br>
+![Keys on GitHub]({{ "/assets/2016-01-21-Dont-store-keys-in-repository/api_key_in_github.png"}})
+<br><br>
+事实上，为了安全起见，而且也为了方便定位问题，我们应该把 _开发环境_ 和 _正式环境_ 中使用的 key 分开，甚至最好是每个开发人员使用的 key 都是不同的，这种情况下直接在代码库中保存 key 不仅不安全，也不方便。
+
+相信每个 iOS 开发都知道，保存敏感的用户数据，比如用于登录的邮箱，token，这时候应该保存到 keychain 里（ 如果你真不知道，[Raywenderlich 这里](https://www.raywenderlich.com/179924/secure-ios-user-data-keychain-biometrics-face-id-touch-id) 有篇很好的教程 ），对于开发者如此敏感的 key 怎么能直接保存到代码库里呢，事实上这个问题并不是第一天出现，业界已经有很多成熟的解决方案了，比如：
+* [Docker secrets](https://docs.docker.com/engine/swarm/secrets/)
+* [BlackBox](https://github.com/StackExchange/blackbox)
+* [git-crypt](https://github.com/AGWA/git-crypt)
+* [cocoapods-keys](https://github.com/orta/cocoapods-keys)
+等等。
+
+其中 **cocoapods-keys** 是专门针对 CocoaPods 的，对于 iOS 开发来说最为友好，这里我就简单介绍一下它。
+
+## cocoapods-key
+**cocoapods-keys** 在我们每次执行 `pod install` 或是 `pod udpate` 时从 Keychain 中取出我们需要的 keys，生成一个名字由你指定的 class，这个 class 保存在 `Pods/CocoaPodsKeys`，所以务必保证这个文件夹不会被版本管理工具包含，如果你在用 `Git`，你可以打开 `.gitignore` 确认。
+
+### Usage
+1. Install 
+打开`Terminal`，执行`gem install cocoapods-keys`，等待安装完毕。
+2. 编辑 `Podfile`，增加你需要的key的名字，例如
+```
+plugin 'cocoapods-keys', {
+  :project => "MyProjectName",
+  :keys => [
+    "SomeService_ID",
+    "SomeService_Secret"
+  ]}
+```
+3. `pod install`
+安装过程中 cocoapods-keys 会检测这些 key 是否存在，如果不存在会要求你输入它们的值。
+4. ::关闭Xcode, [清空 Derived Data](https://stackoverflow.com/questions/38016143/how-can-i-delete-derived-data-in-xcode-8))，然后打开工程，重新编译。::
+5. 一个新的 `MyProjectNameKeys`的类自动生成了，你可以在你的项目里使用了。
+```
+import Keys
+/// ...
+let keys = MyProjectNameKeys()
+someService.someMethod(keys.someService_ID, keys.someService_Secret)
+/// ...
+```

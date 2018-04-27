@@ -8,7 +8,7 @@ categories: certificate, identifier, profile, provisioning profile
 在以 iOS 为代表的 Apple 平台上开发、发布应用需要遵循严格的限制，比如必须要注册开发者账号，开发中的应用不能安装到任意机器上，等等。这里我就解释一下常用的几个名词，方便大家理解。
 
 ## Bundle ID
-每个应用都应该有一个独一无二的 ID ，系统可以根据这个 ID 来区分不同的应用。跟大多平台一样，这个 ID 字符串一般是 reverse-DNS 格式，例如 `com.myOrganization.myFirstApp`，要注意的是，这里区分大小写，`myFirstApp`和`myfistapp`并不相同。
+每个应用都应该有一个独一无二的 ID ，系统可以根据这个 ID 来区分不同的应用。跟大多平台一样，这个 ID 字符串一般是 [reverse-DNS](https://littlebitesofcocoa.com/317-crafting-great-reverse-dns-identifiers) 格式，例如 `com.myOrganization.myFirstApp`，要注意的是，这里区分大小写，`myFirstApp`和`myfistapp`并不相同。
 
 #### App ID
 我们常说的 App ID 其实是由 Team ID 和 Bundle ID 两部分组成的。Team ID 是由 Apple 生成的，不受我们控制。Apple ID 一般格式如下：
