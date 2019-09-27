@@ -4,7 +4,9 @@ title:  "Dear Developers, Don’t be afraid of New Tech"
 date:   2019-09-27
 categories: learning, experience, development, software
 ---
-
+<br><br>
+![Development]({{ "/assets/2019-09-27-Dear-Developers-Dont-Be-Afraid-Of-New-Tech.jpg" }})
+<br><br>
 As a developer, we all see new tech comes out every day, weather it’s a new way to manage your servers, or a new programming language, or a new framework claims can improve the quality of your project by a huge leap. By the nature of developers, we are excited, but also skeptical, some of us will give it a try, some will simply keep an eye on it, forget it’s existence after a month. Majority won’t even give it a try.
 
 I know what you’re afraid of. We’re all busy, we don’t want to waste time on some mumbo jumbo.
