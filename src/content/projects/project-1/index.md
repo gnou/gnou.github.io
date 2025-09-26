@@ -1,76 +1,39 @@
 ---
-title: "Astro Sphere"
-description: "Portfolio and blog build with astro."
-date: "Mar 18 2024"
-demoURL: "https://astro-sphere-demo.vercel.app"
-repoURL: "https://github.com/markhorn-dev/astro-sphere"
+title: "Hotdog or Pizza"
+description: "Basic Image Classification"
+date: "Sep 26 2025"
+demoURL: "https://huggingface.co/spaces/gnouveau/hotdog_or_pizza"
+repoURL: "https://huggingface.co/gnouveau/hotdog_or_pizza"
 ---
 
-![Astro Sphere Lighthouse Score](/astro-sphere.jpg)
+![hotdog_or_pizza](/hotdog_or_pizza.png)
 
-Astro Sphere is a static, minimalist, lightweight, lightning fast portfolio and blog theme based on my personal website.
+Image classification in it's simplest form: is the image a hotdog image or pizza image?
 
-It is primarily Astro, Tailwind and Typescript, with a very small amount of SolidJS for stateful components.
+## Training
 
-## 🚀 Deploy your own
+This project was trained by using fast.ai to fine tune a resnet18 model.  
+The method of training was based on the first 4 chapters of [fastbook](https://github.com/fastai/fastbook).
 
-<div class="flex gap-2">
-  <a target="_blank" aria-label="Deploy with Vercel" href="https://vercel.com/new/clone?repository-url=https://github.com/markhorn-dev/astro-sphere">
-    <img src="/deploy_vercel.svg" />
-  </a>
-  <a target="_blank" aria-label="Deploy with Netlify" href="https://app.netlify.com/start/deploy?repository=https://github.com/markhorn-dev/astro-sphere">
-    <img src="/deploy_netlify.svg" />
-  </a>
-</div>
+## Feature
 
-## 📋 Features
+The only feature is has is to predicate if an image is a hotdog image or pizza image.
 
-- ✅ 100/100 Lighthouse performance
-- ✅ Responsive
-- ✅ Accessible
-- ✅ SEO-friendly
-- ✅ Typesafe
-- ✅ Minimal style
-- ✅ Light/Dark Theme
-- ✅ Animated UI
-- ✅ Tailwind styling
-- ✅ Auto generated sitemap
-- ✅ Auto generated RSS Feed
-- ✅ Markdown support
-- ✅ MDX Support (components in your markdown)
-- ✅ Searchable content (posts and projects)
+If the image is neither hotdog nor pizza, this model will still predicate hotdog or pizza, it doesn't know other options.
 
-## 💯 Lighthouse score
-![Astro Sphere Lighthouse Score](/lighthouse.png)
+A workable image classification cannot be simplier than this.
 
-## 🕊️ Lightweight
-All pages under 100kb (including fonts)
+## Challenge
 
-## ⚡︎ Fast
-Rendered in ~40ms on localhost
+Ineterstingly, the most challenging part is not training - fast.ai's [fastbook](https://github.com/fastai/fastbook) has everything covered. What was challenging was how to run it on huggingface.
 
-## 📄 Configuration
+fastbook only showed how to export a trained `learner` to `model.pkl` file, but `*.pkl` is unsafe, huggingface.co doesn't allow us to use it directly. 
 
-The blog posts on the demo serve as the documentation and configuration.
+I've tried to export it as PyTorch model instead. Export was easy, but load the PyTorch model is not. Fast.ai was not using vanilla resnet18 model, the exported fast.ai resnet18 model can't be directly imported as PyTorch resnet18 model.
 
-## 💻 Commands
+I end up with a _dummy_ fast.ai `Learner` setup, I basically tried to build the same `learner` as the training process during predicating. Only difference is that we don't load real training/validing data. This learning then load exported model weight and vocabulary. Then predicate image just like a newly trained `learner`.
 
-All commands are run from the root of the project, from a terminal:
+## Resources
 
-Replace npm with your package manager of choice. `npm`, `pnpm`, `yarn`, `bun`, etc
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run sync`            | Generates TypeScript types for all Astro modules.|
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-| `npm run lint`            | Run ESLint                                       |
-| `npm run lint:fix`        | Auto-fix ESLint issues                           |
-
-## 🏛️ License
-
-MIT
+- model: https://huggingface.co/gnouveau/hotdog_or_pizza
+- app: https://huggingface.co/spaces/gnouveau/hotdog_or_pizza
