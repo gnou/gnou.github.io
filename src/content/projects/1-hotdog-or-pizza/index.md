@@ -35,5 +35,6 @@ I end up with a _dummy_ fast.ai `Learner` setup, I basically tried to build the 
 
 ## Resources
 
-- model: https://huggingface.co/gnouveau/hotdog_or_pizza
-- app: https://huggingface.co/spaces/gnouveau/hotdog_or_pizza
+- model: [Hugging Face model](https://huggingface.co/gnouveau/hotdog_or_pizza)
+- app: [Hugging Face Spaces app](https://huggingface.co/spaces/gnouveau/hotdog_or_pizza)
+- notebook: [Colab](https://colab.research.google.com/drive/1hnCJ5NB0jFK4NEmnB99UsYqq1dZfJ9_7?usp=sharing)
