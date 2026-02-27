@@ -1,6 +1,9 @@
 import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { HOME } from "@consts";
+import { SITE, HOME } from "@consts";
+import MarkdownIt from "markdown-it";
+
+const md = new MarkdownIt();
 
 type Context = {
   site: string
@@ -17,7 +20,7 @@ export async function GET(context: Context) {
     .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
   return rss({
-    title: HOME.TITLE,
+    title: SITE.NAME,
     description: HOME.DESCRIPTION,
     site: context.site,
     items: items.map((item) => ({
@@ -25,6 +28,7 @@ export async function GET(context: Context) {
       description: item.data.description,
       pubDate: item.data.date,
       link: `/${item.collection}/${item.slug}/`,
+      content: item.body ? md.render(item.body) : undefined,
     })),
   });
 }
