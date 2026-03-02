@@ -21,20 +21,19 @@ export function readingTime(html: string) {
 }
 
 export function dateRange(startDate: Date, endDate?: Date | string): string {
-  const startMonth = startDate.toLocaleString("default", { month: "short" });
   const startYear = startDate.getFullYear().toString();
-  let endMonth;
-  let endYear;
+  const startMonth = (startDate.getMonth() + 1).toString().padStart(2, "0");
+  let end;
 
   if (endDate) {
     if (typeof endDate === "string") {
-      endMonth = "";
-      endYear = endDate;
+      end = endDate;
     } else {
-      endMonth = endDate.toLocaleString("default", { month: "short" });
-      endYear = endDate.getFullYear().toString();
+      const endYear = endDate.getFullYear().toString();
+      const endMonth = (endDate.getMonth() + 1).toString().padStart(2, "0");
+      end = `${endYear}-${endMonth}`;
     }
   }
 
-  return `${startMonth}${startYear} - ${endMonth}${endYear}`;
+  return `${startYear}-${startMonth} - ${end}`;
 }
