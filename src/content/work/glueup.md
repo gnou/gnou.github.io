@@ -5,4 +5,5 @@ dateStart: "2019-08"
 dateEnd: "Current"
 ---
 
-Lead mobile dev squad shipping SaaS mobile apps, supporting 35k MAU across 120+ enterprise clients.
+Engineering lead for customer-facing SaaS mobile products, with 35k+ monthly active users, serve 120+ enterprise clients around the world. 
+Focused on delivery, product execution, and improving release and engineering workflows at scale.
