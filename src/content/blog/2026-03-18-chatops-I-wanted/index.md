@@ -5,7 +5,7 @@ date: "03/18/2026"
 draft: false
 ---
 
-I built an [app release orchestrator to make life easier for our hundreds of app releases](./2026-03-17-what-ai-coding-made-practical-for-me), but for a while it ran on my own machine. It worked, but it wasn’t the kind of setup you really want to depend on.
+I built an [app release orchestrator to make life easier for our hundreds of app releases](../2026-03-17-what-ai-coding-made-practical-for-me), but for a while it ran on my own machine. It worked, but it wasn’t the kind of setup you really want to depend on.
 
 That changed when my company gave us an M4 Mac mini to try things out. Once the orchestrator had a dedicated machine to live on, and once I connected it to OpenClaw, the whole experience clicked.
 
