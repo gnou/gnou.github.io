@@ -11,7 +11,7 @@ type Context = {
 
 export async function GET(context: Context) {
   const blog = (await getCollection("blog"))
-  .filter(post => !post.data.draft);
+  .filter(post => !post.data.draft && !post.slug.endsWith("/cn"));
 
   const projects = (await getCollection("projects"))
     .filter(project => !project.data.draft);

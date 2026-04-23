@@ -4,41 +4,64 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import BackToPrev from "@components/BackToPrev.astro";
+import BilingualArticle from "@components/BilingualArticle.astro";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog"))
-    .filter(post => !post.data.draft)
+  const allPosts = await getCollection("blog");
+  const posts = allPosts
+    .filter(post => !post.data.draft && !post.slug.endsWith("/cn"))
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  return posts.map((post) => {
+    const cnPost = allPosts.find(p => p.slug === `${post.slug}/cn`);
+    return {
+      params: { slug: post.slug },
+      props: { post, cnPost },
+    };
+  });
 }
-type Props = CollectionEntry<"blog">;
 
-const post = Astro.props;
+interface Props {
+  post: CollectionEntry<"blog">;
+  cnPost?: CollectionEntry<"blog">;
+}
+
+const { post, cnPost } = Astro.props;
+const isBilingual = !!cnPost;
 const { Content } = await post.render();
 ---
 
 <PageLayout title={post.data.title} description={post.data.description}>
-  <Container>
-    <div class="animate">
-      <BackToPrev href="/blog">
-        Back to blog
-      </BackToPrev>
+  {isBilingual ? (
+    <div class="mx-auto max-w-screen-xl px-5 lg:px-10">
+      <div class="animate">
+        <BackToPrev href="/blog">
+          Back to blog
+        </BackToPrev>
+      </div>
+      <div class="my-10 animate">
+        <BilingualArticle enPost={post} cnPost={cnPost!} />
+      </div>
     </div>
-    <div class="space-y-1 my-10">
-      <div class="animate flex items-center gap-1.5">
-        <div class="font-base text-sm">
-          <FormattedDate date={post.data.date} />
+  ) : (
+    <Container>
+      <div class="animate">
+        <BackToPrev href="/blog">
+          Back to blog
+        </BackToPrev>
+      </div>
+      <div class="space-y-1 my-10">
+        <div class="animate flex items-center gap-1.5">
+          <div class="font-base text-sm">
+            <FormattedDate date={post.data.date} />
+          </div>
+        </div>
+        <div class="animate text-2xl font-semibold text-black dark:text-white">
+          {post.data.title}
         </div>
       </div>
-      <div class="animate text-2xl font-semibold text-black dark:text-white">
-        {post.data.title}
-      </div>
-    </div>
-    <article class="animate">
-      <Content />
-    </article>
-  </Container>
+      <article class="animate">
+        <Content />
+      </article>
+    </Container>
+  )}
 </PageLayout>

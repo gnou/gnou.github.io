@@ -1,0 +1,387 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@components/FormattedDate.astro";
+
+interface Props {
+  enPost: CollectionEntry<"blog">;
+  cnPost: CollectionEntry<"blog">;
+}
+
+const { enPost, cnPost } = Astro.props;
+const { Content: EnContent } = await enPost.render();
+const { Content: CnContent } = await cnPost.render();
+
+const cnDate = cnPost.data.date.toLocaleDateString("zh-CN", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- Language toggle (desktop) -->
+<div class="flex justify-between items-center mb-14 animate">
+  <div></div>
+  <div class="hidden lg:flex items-center gap-2.5 font-sans text-xs text-black/40 dark:text-white/40">
+    <span class="text-[10.5px] uppercase tracking-[0.18em]">Language</span>
+    <div class="bilingual-seg" id="desktopLangCtrl">
+      <button data-view="en">EN</button>
+      <button data-view="side" class="active">EN · 中文</button>
+      <button data-view="zh">中文</button>
+    </div>
+  </div>
+</div>
+
+<!-- Bilingual grid -->
+<div class="bilingual-grid" id="bilingualGrid" data-mode="side">
+  <!-- English column -->
+  <section class="bilingual-col bilingual-col-en">
+    <div class="text-[10.5px] uppercase tracking-[0.18em] font-sans text-black/40 dark:text-white/40 mb-4">
+      English
+    </div>
+    <div class="font-sans text-xs text-black/40 dark:text-white/40 mb-2.5">
+      <FormattedDate date={enPost.data.date} />
+    </div>
+    <h1 class="text-[28px] leading-[1.2] font-bold tracking-tight text-black dark:text-white mb-9">
+      {enPost.data.title}
+    </h1>
+    <article class="bilingual-article-en">
+      <EnContent />
+    </article>
+  </section>
+
+  <!-- Divider -->
+  <div class="bilingual-divider" aria-hidden="true"></div>
+
+  <!-- Chinese column -->
+  <section class="bilingual-col bilingual-col-zh">
+    <div class="text-[10.5px] uppercase tracking-[0.18em] font-sans text-black/40 dark:text-white/40 mb-4">
+      中文
+    </div>
+    <div class="font-sans text-xs text-black/40 dark:text-white/40 mb-2.5">
+      {cnDate}
+    </div>
+    <h1 class="bilingual-title-zh text-[26px] leading-[1.35] font-bold text-black dark:text-white mb-9">
+      {cnPost.data.title}
+    </h1>
+    <article class="bilingual-article-zh">
+      <CnContent />
+    </article>
+  </section>
+</div>
+
+<!-- Mobile FAB -->
+<div class="bilingual-fab lg:hidden" id="mobileFab">
+  <span class="text-[10px] uppercase tracking-[0.18em] text-black/40 dark:text-white/40">Lang</span>
+  <div class="bilingual-fab-seg">
+    <button data-view="en" class="active">EN</button>
+    <button data-view="zh">中文</button>
+  </div>
+</div>
+
+<style>
+  /* Segmented control */
+  .bilingual-seg {
+    display: inline-flex;
+    padding: 3px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 999px;
+    background: rgba(0,0,0,0.03);
+  }
+  :global(.dark) .bilingual-seg {
+    border-color: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+  }
+  .bilingual-seg button {
+    font-family: inherit;
+    font-size: 12.5px;
+    color: rgba(0,0,0,0.45);
+    background: transparent;
+    border: 0;
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: color 120ms ease, background-color 120ms ease;
+    white-space: nowrap;
+  }
+  :global(.dark) .bilingual-seg button {
+    color: rgba(255,255,255,0.5);
+  }
+  .bilingual-seg button:hover {
+    color: rgba(0,0,0,0.7);
+  }
+  :global(.dark) .bilingual-seg button:hover {
+    color: rgba(255,255,255,0.8);
+  }
+  .bilingual-seg button.active {
+    background: rgb(0,0,0);
+    color: white;
+    font-weight: 600;
+  }
+  :global(.dark) .bilingual-seg button.active {
+    background: rgb(255,255,255);
+    color: rgb(0,0,0);
+  }
+
+  /* Grid layout */
+  .bilingual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    column-gap: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .bilingual-divider {
+    width: 1px;
+    align-self: stretch;
+    background: rgba(0,0,0,0.08);
+  }
+  :global(.dark) .bilingual-divider {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .bilingual-col {
+    padding: 0 48px;
+  }
+
+  .bilingual-col-zh {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+    line-height: 1.85;
+  }
+
+  .bilingual-title-zh {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+  }
+
+  /* Article prose styling for bilingual columns */
+  .bilingual-article-en,
+  .bilingual-article-zh {
+    line-height: 1.7;
+    font-size: 17px;
+  }
+  .bilingual-article-en {
+    font-family: Lora, Georgia, serif;
+  }
+  .bilingual-article-zh {
+    font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+    line-height: 1.85;
+  }
+  .bilingual-article-en :global(p),
+  .bilingual-article-zh :global(p) {
+    margin: 0 0 1.25em;
+  }
+  .bilingual-article-en :global(a),
+  .bilingual-article-zh :global(a) {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(0,0,0,0.15);
+    transition: text-decoration-color 300ms ease;
+  }
+  :global(.dark) .bilingual-article-en :global(a),
+  :global(.dark) .bilingual-article-zh :global(a) {
+    text-decoration-color: rgba(255,255,255,0.3);
+  }
+  .bilingual-article-en :global(a:hover),
+  .bilingual-article-zh :global(a:hover) {
+    text-decoration-color: rgba(0,0,0,0.4);
+  }
+  :global(.dark) .bilingual-article-en :global(a:hover),
+  :global(.dark) .bilingual-article-zh :global(a:hover) {
+    text-decoration-color: rgba(255,255,255,0.6);
+  }
+
+  /* Single-language mode */
+  .bilingual-grid[data-mode="en"] {
+    grid-template-columns: 1fr;
+    max-width: 680px;
+  }
+  .bilingual-grid[data-mode="en"] .bilingual-divider,
+  .bilingual-grid[data-mode="en"] .bilingual-col-zh {
+    display: none;
+  }
+  .bilingual-grid[data-mode="en"] .bilingual-col-en {
+    padding: 0;
+  }
+
+  .bilingual-grid[data-mode="zh"] {
+    grid-template-columns: 1fr;
+    max-width: 680px;
+  }
+  .bilingual-grid[data-mode="zh"] .bilingual-divider,
+  .bilingual-grid[data-mode="zh"] .bilingual-col-en {
+    display: none;
+  }
+  .bilingual-grid[data-mode="zh"] .bilingual-col-zh {
+    padding: 0;
+  }
+
+  /* Mobile: force single column */
+  @media (max-width: 1023px) {
+    .bilingual-grid {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+    .bilingual-divider {
+      display: none;
+    }
+    .bilingual-col {
+      padding: 0;
+    }
+    /* Default: show EN, hide ZH on mobile */
+    .bilingual-col-zh {
+      display: none;
+    }
+    /* When mobile mode is zh */
+    .bilingual-grid[data-mode="zh"] .bilingual-col-en {
+      display: none;
+    }
+    .bilingual-grid[data-mode="zh"] .bilingual-col-zh {
+      display: block;
+    }
+    /* When mobile mode is en (explicit) */
+    .bilingual-grid[data-mode="en"] .bilingual-col-en {
+      display: block;
+    }
+    /* When desktop side mode on mobile, show only EN */
+    .bilingual-grid[data-mode="side"] .bilingual-col-en {
+      display: block;
+    }
+    .bilingual-grid[data-mode="side"] .bilingual-col-zh {
+      display: none;
+    }
+  }
+
+  /* Mobile FAB */
+  .bilingual-fab {
+    position: fixed;
+    right: 14px;
+    bottom: 18px;
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 5px 5px 14px;
+    gap: 8px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 999px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.12), 0 0 0 4px rgba(255,255,255,0.1);
+    font-family: inherit;
+  }
+  :global(.dark) .bilingual-fab {
+    background: rgba(28,25,23,0.92);
+    border-color: rgba(255,255,255,0.12);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.5), 0 0 0 4px rgba(28,25,23,0.3);
+  }
+  .bilingual-fab-seg {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.05);
+  }
+  :global(.dark) .bilingual-fab-seg {
+    background: rgba(255,255,255,0.08);
+  }
+  .bilingual-fab-seg button {
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: rgba(0,0,0,0.45);
+    background: transparent;
+    border: 0;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  :global(.dark) .bilingual-fab-seg button {
+    color: rgba(255,255,255,0.5);
+  }
+  .bilingual-fab-seg button.active {
+    background: rgb(0,0,0);
+    color: white;
+    font-weight: 600;
+  }
+  :global(.dark) .bilingual-fab-seg button.active {
+    background: rgb(255,255,255);
+    color: rgb(0,0,0);
+  }
+</style>
+
+<script>
+  function initBilingual() {
+    const grid = document.getElementById('bilingualGrid');
+    const desktopCtrl = document.getElementById('desktopLangCtrl');
+    const fab = document.getElementById('mobileFab');
+    if (!grid) return;
+
+    let mode = 'side';
+    let mobileLang = 'en';
+
+    function apply() {
+      if (!grid) return;
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+      if (isDesktop) {
+        grid.setAttribute('data-mode', mode);
+      } else {
+        grid.setAttribute('data-mode', mobileLang);
+      }
+
+      // Update desktop buttons
+      desktopCtrl?.querySelectorAll('button').forEach((b: Element) => {
+        const btn = b as HTMLButtonElement;
+        let isActive = false;
+        if (mode === 'side') isActive = btn.dataset.view === 'side';
+        else isActive = btn.dataset.view === mode;
+        btn.classList.toggle('active', isActive);
+      });
+
+      // Update FAB buttons
+      fab?.querySelectorAll('.bilingual-fab-seg button').forEach((b: Element) => {
+        const btn = b as HTMLButtonElement;
+        btn.classList.toggle('active', btn.dataset.view === mobileLang);
+      });
+    }
+
+    desktopCtrl?.addEventListener('click', (e: Event) => {
+      const btn = (e.target as HTMLElement).closest('button') as HTMLButtonElement | null;
+      if (!btn) return;
+      const v = btn.dataset.view;
+      if (v === 'side') {
+        mode = 'side';
+      } else if (v === 'en' || v === 'zh') {
+        mode = v;
+        mobileLang = v;
+      }
+      apply();
+    });
+
+    fab?.addEventListener('click', (e: Event) => {
+      const btn = (e.target as HTMLElement).closest('button') as HTMLButtonElement | null;
+      if (!btn) return;
+      const v = btn.dataset.view;
+      if (v === 'en' || v === 'zh') {
+        mobileLang = v;
+        apply();
+      }
+    });
+
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', () => apply());
+
+    apply();
+  }
+
+  // Support Astro view transitions
+  document.addEventListener('DOMContentLoaded', initBilingual);
+  document.addEventListener('astro:after-swap', initBilingual);
+</script>
