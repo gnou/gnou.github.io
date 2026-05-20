@@ -381,7 +381,12 @@ const cnDate = cnPost.data.date.toLocaleDateString("zh-CN", {
     apply();
   }
 
-  // Support Astro view transitions
-  document.addEventListener('DOMContentLoaded', initBilingual);
+  // Astro ships <script> blocks as deferred ES modules, which evaluate
+  // after DOMContentLoaded — so the event listener form would never fire.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBilingual);
+  } else {
+    initBilingual();
+  }
   document.addEventListener('astro:after-swap', initBilingual);
 </script>
